@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  sonarqube-analysis:
-    name: Análisis SonarCloud
+  desarrollo-seguro:
+    name: Análisis SonarCloud + Semgrep
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,3 +24,10 @@ jobs:
           projectBaseDir: .
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Instalar Semgrep
+        run: |
+          pip install semgrep
+
+      - name: Ejecutar Semgrep
+        run: semgrep --config=auto .
